@@ -81,4 +81,15 @@ function main() {
           break;
       }
     });
+
+  function viewEmployees() {}
+  function viewDepartments() {}
+  function viewRoles() {}
+  function addEmployee() {}
+  function addDepartment() {}
+  function addRole() {}
+  function updateRole() {}
+  function removeEmployee() {}
+  function removeDepartment() {}
+  function removeRole() {}
 }
