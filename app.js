@@ -1,6 +1,5 @@
-const mysql = require("mysql2");
+const mysql = require("mysql");
 const inquirer = require("inquirer");
-const conTable = require("console.table");
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -12,7 +11,7 @@ const connection = mysql.createConnection({
 
 connection.connect(function (err) {
   if (err) throw err;
-  console.log("Connected to " + port + " as id " + connection.threadId);
+  console.log("Connected as id: " + connection.threadId);
   main();
 });
 
@@ -82,8 +81,23 @@ function main() {
       }
     });
 
-  function viewEmployees() {}
+  function viewEmployees() {
+    let query = `SELECT e.id, e.first_name, r.title, d.name AS department, r.salary
+    FROM employee e
+    LEFT JOIN role r
+    ON e.role_id = r.id
+    LEFT JOIN department d
+    ON d.id = r.department_id`;
+
+    connection.query(query, function (err, res) {
+      if (err) throw err;
+      console.table(res);
+      main();
+    });
+  }
+
   function viewDepartments() {}
+
   function viewRoles() {}
   function addEmployee() {}
   function addDepartment() {}
